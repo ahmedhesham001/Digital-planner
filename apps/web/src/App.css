@@ -182,3 +182,30 @@
     border-right-color: var(--border);
   }
 }
+
+.status {
+  &.pending {
+    background: rgba(var(--color-primary-500-rgb), 0.2);
+    color: var(--color-primary-500);
+  }
+  &.done {
+    background: rgba(var(--color-success-500-rgb), 0.2);
+    color: var(--color-success-500);
+  }
+  &.canceled {
+    background: rgba(var(--color-error-500-rgb), 0.2); 
+    color: var(--color-error-500);
+  }
+}
+
+.priority {
+  &.high div{
+    background: var(--color-error-500);
+  }
+  &.medium div  {
+    background: var(--color-primary-500);
+  }
+  &.low div {
+    background: var(--color-base-500); 
+  }
+}
