@@ -1,22 +1,2 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.login-page{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: gray;
-}
-
-.card{
-    width: 420px;
-    background: white;
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 40px;
-}
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
