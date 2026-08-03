@@ -2,7 +2,9 @@ import { Bolt, LogOut, Flame, Plus } from 'lucide-react'
 import ThemeSwitch from './ThemeSwitch'
 import LightLogo from '../assets/Light-Logo.svg'
 import DarkLogo from '../assets/Dark-Logo.svg'
+import { useNavigate } from 'react-router-dom';
 export default function SideBar({isDark}) {
+    const navigate = useNavigate();
     return(
         <aside className="w-64 border-r border-base-800 flex flex-col justify-between items-start py-4 shrink-0 select-none">
             <div className='flex flex-col gap-8 w-full'>
@@ -40,7 +42,7 @@ export default function SideBar({isDark}) {
                     <div className='text-base-400 hover:text-base-100 transition-colors cursor-pointer border-base-700 border-b-2 px-4 py-2 flex items-center gap-2'>
                         <Bolt className='w-4 h-4' /> Edit Profile
                     </div>
-                    <div className='text-base-400 hover:text-base-100 transition-colors cursor-pointer border-base-700 border-b-2 px-4 py-2 flex items-center gap-2'>
+                    <div className='text-base-400 hover:text-base-100 transition-colors cursor-pointer border-base-700 border-b-2 px-4 py-2 flex items-center gap-2' onClick={() => navigate('/')}>
                         <LogOut className='w-4 h-4' /> Logout
                     </div>
                     <div className="theme flex items-center justify-center">

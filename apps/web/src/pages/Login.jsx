@@ -1,6 +1,9 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Logo from "../assets/Light-Logo.svg"
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+    const navigate = useNavigate();
+    const handleLogin = () => navigate("/dashboard");
 return (
     
 <div className="relative min-h-screen bg-base-950 p-5 flex flex-col items-center  justify-center">
@@ -29,7 +32,7 @@ return (
             <input className="w-full h-10 rounded-md border border-zinc-500 bg-transparent px-3 text-white placeholder:text-zinc-500" type="password" placeholder="**********"/>
         </div>
         <div>
-            <button className="w-full h-10 rounded-md bg-primary-500 text-white font-semibold cursor-pointer hover:bg-base-100 hover:text-primary-500 transition">Login</button>
+            <button className="w-full h-10 rounded-md bg-primary-500 text-white font-semibold cursor-pointer hover:bg-base-100 hover:text-primary-500 transition" onClick={handleLogin}>Login</button>
         </div>
         <div className="flex items-center gap-3">
             <hr className="flex-1 border-white" />
