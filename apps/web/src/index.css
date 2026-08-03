@@ -19,6 +19,7 @@
   --color-primary-700:#6D4C09;
   --color-primary-800:#4E3709;
   --color-primary-900:#453108;
+  --color-primary-500-rgb: 239, 161, 2;
 
   --color-success-100:#E0F5E9;
   --color-success-200:#D9EFE3;
@@ -29,6 +30,7 @@
   --color-success-700:#295B3A;
   --color-success-800:#124A26;
   --color-success-900:#084520;
+  --color-success-500-rgb: 122, 157, 136;
 
   --color-error-100:#F5E5E0;
   --color-error-200:#F4DDD6;
@@ -39,13 +41,28 @@
   --color-error-700:#682614;
   --color-error-800:#4D190B;
   --color-error-900:#451508;
+  --color-error-500-rgb: 216, 92, 57;
 
   --font-sans: "Geist", sans-serif;
 }
+:root, :root[data-theme="dark"] {
+  --bg-app: #09090B;
+  --text-app: #F4F4F5;
+  --card-bg: #18181B;
+}
+:root[data-theme="light"] {
+  --bg-app: #F4F4F5;
+  --text-app: #09090B;
+  --card-bg: #f4f4f5;
+  --color-base-950: #FFFFFF;
+  --color-base-900: #F4F4F5;
+  --color-base-800: #E4E4E7;
+  --color-base-100: #09090B;
+}
 @layer base {
   body {
-    background-color: var(--color-base-950);
-    color: var(--color-base-100);
+    background-color: var(--bg-app);
+    color: var(--text-app);
     @apply antialiased selection:bg-primary-500 selection:text-white;
   }
 }
