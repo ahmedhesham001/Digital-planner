@@ -1,13 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Bell, ClipboardList, ClipboardCheck, AlarmClockMinus, AlarmClockCheck, ListSortDescending, Bolt,LogOut} from 'lucide-react'
+import { Bell, ClipboardList, ClipboardCheck, AlarmClockMinus, AlarmClockCheck, ListSortDescending} from 'lucide-react'
 import Day from '../components/Day'
 import Card from '../components/Card'
 import SideBar from '../components/SideBar'
-import LightLogo from '../assets/Light-Logo.svg'
-import DarkLogo from '../assets/Dark-Logo.svg'
-import Status from '../components/Status'
 import Task from '../components/Task'
-import ThemeSwitch from '../components/ThemeSwitch'
 export default function Dashboard() {
     const tasks = [
         {name: "Task1", startDate: "2026-07-22", endDate: "2026-07-22", status: "pending", priority: "high"},
