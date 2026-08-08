@@ -11,22 +11,43 @@ export default function Dashboard() {
         {name: "Task3", startDate: "2026-07-22", endDate: "2026-07-22", status: "canceled", priority: "low"},
         {name: "Task4", startDate: "2026-07-22", endDate: "2026-07-22", status: "done", priority: "high"},
     ]
-    const [isDark, setIsDark] = useState(true);
-    useEffect(() =>{
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        setIsDark(currentTheme === 'dark');
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-                    setIsDark(mutation.target.getAttribute('data-theme') === 'dark');
-                }
-            });
+    const AllTasks = tasks.length;
+
+const doneTasks = tasks.filter(
+    task => task.status === "done"
+).length;
+
+const pendingTasks = tasks.filter(
+    task => task.status === "pending"
+).length;
+
+const canceledTasks = tasks.filter(
+    task => task.status === "canceled"
+).length;
+    const [isDark, setIsDark] = useState(
+    () => document.documentElement.getAttribute('data-theme') === 'dark'
+);
+
+useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (
+                mutation.type === 'attributes' &&
+                mutation.attributeName === 'data-theme'
+            ) {
+                setIsDark(
+                    mutation.target.getAttribute('data-theme') === 'dark'
+                );
+            }
         });
-        observer.observe(document.documentElement, {
-            attributes: true
-        });
-        return () => observer.disconnect();
-    }, [])
+    });
+
+    observer.observe(document.documentElement, {
+        attributes: true,
+    });
+
+    return () => observer.disconnect();
+}, []);
     return (
         <div className="min-h-screen w-full flex transition-all duration-500 bg-base-950">
             <SideBar isDark={isDark} />
@@ -59,10 +80,10 @@ export default function Dashboard() {
                     <Day day="Fri" date="25" isSelected={false} />
                 </div>
                 <div className="flex flex-row justify-between px-12 shrink-0">
-                    <Card title="Total Tasks" number="5" icon={<ClipboardList className="w-8 h-8 text-base-100" />} />
-                    <Card title="Completed Tasks" number="3" icon={<ClipboardCheck className="w-8 h-8 text-base-100" />} />
-                    <Card title="Pending Tasks" number="2" icon={<AlarmClockMinus className="w-8 h-8 text-base-100" />} />
-                    <Card title="Overdue Tasks" number="1" icon={<AlarmClockCheck className="w-8 h-8 text-base-100" />} />
+                    <Card title="AllTasks" number={AllTasks} icon={<ClipboardList className="w-8 h-8 text-base-100" />} />
+                    <Card title="doneTasks" number={doneTasks} icon={<ClipboardCheck className="w-8 h-8 text-base-100" />} />
+                    <Card title="Pending Tasks" number={pendingTasks} icon={<AlarmClockMinus className="w-8 h-8 text-base-100" />} />
+                    <Card title="Canceled Tasks" number={canceledTasks} icon={<AlarmClockCheck className="w-8 h-8 text-base-100" />} />
                 </div>
 
                 <div className='px-12 border border-base-800 rounded-2xl mx-12 py-4 flex flex-col flex-1 overflow-hidden mb-6'>
