@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Bell, ClipboardList, ClipboardCheck, AlarmClockMinus, AlarmClockCheck, ListSortDescending} from 'lucide-react'
 import Day from '../components/Day'
+import CreationTask from '../components/CreationTask'
 import Card from '../components/Card'
 import SideBar from '../components/SideBar'
 import Task from '../components/Task'
@@ -11,22 +12,21 @@ export default function Dashboard() {
         {name: "Task3", startDate: "2026-07-22", endDate: "2026-07-22", status: "canceled", priority: "low"},
         {name: "Task4", startDate: "2026-07-22", endDate: "2026-07-22", status: "done", priority: "high"},
     ]
+    const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
     const AllTasks = tasks.length;
 
 const doneTasks = tasks.filter(
-    task => task.status === "done"
-).length;
+    task => task.status === "done").length;
 
 const pendingTasks = tasks.filter(
-    task => task.status === "pending"
-).length;
+    task => task.status === "pending").length;
 
 const canceledTasks = tasks.filter(
-    task => task.status === "canceled"
-).length;
+    task => task.status === "canceled").length;
     const [isDark, setIsDark] = useState(
     () => document.documentElement.getAttribute('data-theme') === 'dark'
 );
+
 
 useEffect(() => {
     const observer = new MutationObserver((mutations) => {
@@ -85,12 +85,12 @@ useEffect(() => {
                     <Card title="Pending Tasks" number={pendingTasks} icon={<AlarmClockMinus className="w-8 h-8 text-base-100" />} />
                     <Card title="Canceled Tasks" number={canceledTasks} icon={<AlarmClockCheck className="w-8 h-8 text-base-100" />} />
                 </div>
-
                 <div className='px-12 border border-base-800 rounded-2xl mx-12 py-4 flex flex-col flex-1 overflow-hidden mb-6'>
                     <div className="flex flex-row justify-between px-4 items-center shrink-0">
                         <h2 className='text-base-100 font-bold text-xl'>Tasks List</h2>
                         <div className='flex flex-row gap-2 items-center'>
-                            <button className="text-base-100 bg-primary-500 rounded-full px-4 py-2 cursor-pointer hover:bg-base-100 hover:text-primary-500 transition-colors">+</button>
+                            <button onClick={() => setIsTaskModalOpen(true)} className="text-base-100 bg-primary-500 rounded-full
+                            px-4 py-2 cursor-pointer hover:bg-base-100 hover:text-primary-500 transition-colors">+</button>
                             <div className="filter flex flex-row gap-2 items-center bg-base-900 rounded-full px-4 py-2 cursor-pointer hover:bg-base-800 transition-colors">
                                 <ListSortDescending className="w-4 h-4 text-primary-500" />
                                 <p className='text-base-100 text-sm'>Filter</p>
@@ -114,6 +114,5 @@ useEffect(() => {
                     </div>
                 </div>
             </main>
-        </div>
-    )
-}
+            {isTaskModalOpen && (<CreationTask onClose={() => setIsTaskModalOpen(false)}/>)}
+    </div>)}
