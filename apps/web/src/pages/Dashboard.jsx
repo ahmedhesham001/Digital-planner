@@ -55,6 +55,13 @@ export default function Dashboard() {
     // Create Task Modal
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
 
+    const handleUpdateTask = (id, field, newValue) => {
+    setTasks(prevTasks =>
+        prevTasks.map(task =>
+            task.id === id ? { ...task, [field]: newValue } : task
+        )
+    )
+}
     // Dark Mode
     const [isDark, setIsDark] = useState(true)
 
@@ -160,7 +167,7 @@ export default function Dashboard() {
         <div className="min-h-screen w-full flex transition-all duration-500 bg-base-950">
 
             {/* Sidebar */}
-            <SideBar isDark={isDark} />
+            <SideBar isDark={isDark} totalTasks={totalTasks} completedTasks={completedTasks} />
 
             <main className="w-full h-screen overflow-hidden flex flex-col gap-6 text-base-400">
 
@@ -376,13 +383,14 @@ export default function Dashboard() {
                         </div>
 
                         {/* Tasks */}
-                        <div className="flex flex-col py-2 gap-4">
+                        <div className="flex flex-col py-2 gap-4 ">
 
                             {tasks.map((task) => (
 
                                 <Task
                                     key={task.id}
                                     task={task}
+                                    onUpdate={handleUpdateTask}
                                 />
 
                             ))}
