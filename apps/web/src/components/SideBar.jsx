@@ -2,7 +2,13 @@ import { Bolt, LogOut, Flame, Plus } from 'lucide-react'
 import ThemeSwitch from './ThemeSwitch'
 import LightLogo from '../assets/Light-Logo.svg'
 import DarkLogo from '../assets/Dark-Logo.svg'
-export default function SideBar({isDark}) {
+import { useNavigate } from 'react-router-dom';
+import CreationTask from './CreationTask'
+import { useState } from 'react';
+export default function SideBar({isDark, totalTasks, completedTasks}) {
+    const navigate = useNavigate();
+    const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+    const progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
     return(
         <aside className="w-64 border-r border-base-800 flex flex-col justify-between items-start py-4 shrink-0 select-none">
             <div className='flex flex-col gap-8 w-full'>
@@ -16,7 +22,9 @@ export default function SideBar({isDark}) {
                     </nav>
             </div>
             <div className="w-full flex flex-col gap-4 px-4">
-                <button className="w-full bg-primary-500 hover:bg-base-100 hover:text-primary-500 font-bold py-2 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer text-sm shadow-md shadow-primary-500/10">
+                <button
+                onClick={() => setIsTaskModalOpen(true)}
+                className="w-full bg-primary-500 hover:bg-base-100 hover:text-primary-500 font-bold py-2 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer text-sm shadow-md shadow-primary-500/10">
                     <Plus className="w-4 h-4" /> New Task
                 </button>
                 <div className="px-4 py-2.5 rounded-xl bg-base-900 border border-base-800 flex items-center justify-between">
@@ -29,10 +37,10 @@ export default function SideBar({isDark}) {
                 <div className="p-3 rounded-xl bg-base-900 border border-base-800 flex flex-col gap-2">
                     <div className="flex justify-between text-xs text-base-400">
                         <span>Today's Progress</span>
-                        <span className="text-primary-500 font-bold">60%</span>
+                        <span className="text-primary-500 font-bold">{progress.toFixed(0)}%</span>
                     </div>
                     <div className="w-full bg-base-800 h-1.5 rounded-full overflow-hidden">
-                        <div className="bg-primary-500 h-full w-[60%] rounded-full"></div>
+                        <div className="bg-primary-500 h-full rounded-full transition-all duration-500 ease-out" style={{ width: `${progress}%` }} ></div>
                     </div>
                 </div>
             </div>        
@@ -40,7 +48,7 @@ export default function SideBar({isDark}) {
                     <div className='text-base-400 hover:text-base-100 transition-colors cursor-pointer border-base-700 border-b-2 px-4 py-2 flex items-center gap-2'>
                         <Bolt className='w-4 h-4' /> Edit Profile
                     </div>
-                    <div className='text-base-400 hover:text-base-100 transition-colors cursor-pointer border-base-700 border-b-2 px-4 py-2 flex items-center gap-2'>
+                    <div className='text-base-400 hover:text-base-100 transition-colors cursor-pointer border-base-700 border-b-2 px-4 py-2 flex items-center gap-2' onClick={() => navigate('/')}>
                         <LogOut className='w-4 h-4' /> Logout
                     </div>
                     <div className="theme flex items-center justify-center">
@@ -49,5 +57,22 @@ export default function SideBar({isDark}) {
                         </div>
                     </div>
                 </div>
+                {isTaskModalOpen && (
+                
+                                <CreationTask
+                                    onClose={() => setIsTaskModalOpen(false)}
+                
+                                    onAddTask={(newTask) => {
+                
+                                        setTasks((prevTasks) => [
+                                            ...prevTasks,
+                                            newTask
+                                        ])
+                
+                                        setIsTaskModalOpen(false)
+                                    }}
+                                />
+                
+                            )}
             </aside>
     )}
