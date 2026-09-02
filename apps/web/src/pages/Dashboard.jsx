@@ -15,8 +15,6 @@ import SideBar from '../components/SideBar'
 import Task from '../components/Task'
 
 export default function Dashboard() {
-
-    // Tasks
     const [tasks, setTasks] = useState([
         {
             id: 1,
@@ -51,10 +49,7 @@ export default function Dashboard() {
             priority: "high"
         }
     ])
-
-    // Create Task Modal
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
-
     const handleUpdateTask = (id, field, newValue) => {
     setTasks(prevTasks =>
         prevTasks.map(task =>
@@ -62,20 +57,13 @@ export default function Dashboard() {
         )
     )
 }
-    // Dark Mode
     const [isDark, setIsDark] = useState(true)
-
     useEffect(() => {
-
         const currentTheme =
             document.documentElement.getAttribute('data-theme')
-
         setIsDark(currentTheme === 'dark')
-
         const observer = new MutationObserver((mutations) => {
-
             mutations.forEach((mutation) => {
-
                 if (
                     mutation.type === 'attributes' &&
                     mutation.attributeName === 'data-theme'
@@ -84,22 +72,14 @@ export default function Dashboard() {
                         mutation.target.getAttribute('data-theme') === 'dark'
                     )
                 }
-
             })
-
         })
-
         observer.observe(document.documentElement, {
             attributes: true
         })
-
         return () => observer.disconnect()
-
     }, [])
-
-    // Tasks statistics
     const totalTasks = tasks.length
-
     const completedTasks = tasks.filter(
         task => task.status === 'done'
     ).length
@@ -256,8 +236,6 @@ export default function Dashboard() {
                     </div>
 
                 </nav>
-
-                {/* Days */}
                 <div className="flex flex-row gap-4 px-12 h-12 items-center justify-center shrink-0">
 
                     {weekDays.map((day, index) => (
@@ -272,8 +250,6 @@ export default function Dashboard() {
                     ))}
 
                 </div>
-
-                {/* Cards */}
                 <div className="flex flex-row justify-between px-12 shrink-0">
 
                     <Card
@@ -402,26 +378,18 @@ export default function Dashboard() {
                 </div>
 
             </main>
-
-            {/* Create Task Modal */}
             {isTaskModalOpen && (
-
                 <CreationTask
                     onClose={() => setIsTaskModalOpen(false)}
-
                     onAddTask={(newTask) => {
-
                         setTasks((prevTasks) => [
                             ...prevTasks,
                             newTask
                         ])
-
                         setIsTaskModalOpen(false)
                     }}
                 />
-
             )}
-
         </div>
     )
 }
